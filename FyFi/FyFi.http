@@ -1,0 +1,6 @@
+@FyFi_HostAddress = http://localhost:5276
+
+GET {{FyFi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
