@@ -1,4 +1,4 @@
-namespace FyFi
+namespace FyFi.API
 {
     public class WeatherForecast
     {
