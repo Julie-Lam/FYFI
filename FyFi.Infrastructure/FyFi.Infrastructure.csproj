@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FyFi.Core\FyFi.Core.csproj" />
+    <ProjectReference Include="..\FyFi.Domain\FyFi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
