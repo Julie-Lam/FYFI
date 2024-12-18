@@ -18,14 +18,11 @@ namespace FyFi.API.Controllers
         /// Return all Expenses
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("Expense")]
         public ActionResult Index() //GET: Expense/
         {
 
-            throw new NotImplementedException();
-
-
-
+            throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace FyFi.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("Expense/{id}")]
         public async Task<ActionResult<Expense>> Index(int id) //GET: Expense/{id}
         {
             var expense = await _expenseRepository.GetByIdAsync(id);
@@ -42,31 +39,32 @@ namespace FyFi.API.Controllers
 
 
         // POST: ExpenseController/Create
-        [HttpPost]
+        [HttpPost("Expense")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Expense expense)
         {
-            throw new NotImplementedException();
+            var result = await _expenseRepository.CreateAsync(expense);
+            return Ok(result); 
         }
 
 
 
         // PUT: ExpenseController/Update/5
-        [HttpPut]
+        [HttpPut("Expense/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Update(int id, IFormCollection collection)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
 
 
 
         // POST: ExpenseController/Delete/5
-        [HttpDelete]
+        [HttpDelete("Expense/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
     }
 }

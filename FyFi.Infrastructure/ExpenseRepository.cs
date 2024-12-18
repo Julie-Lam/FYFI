@@ -5,6 +5,11 @@ namespace FyFi.Infrastructure
 {
     public class ExpenseRepository : IExpenseRepository
     {
+        public Task<Expense> CreateAsync(Expense expense)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task DeleteByIdAsync(int id)
         {
             throw new NotImplementedException();

@@ -13,5 +13,7 @@ namespace FyFi.Core
         Task<List<Expense>> GetAllAsync();
         Task<Expense> GetByIdAsync(int id);
         Task<Expense> UpdateByIdAsync(int id);
+
+        Task<Expense> CreateAsync(Expense expense);  
     }
 }
