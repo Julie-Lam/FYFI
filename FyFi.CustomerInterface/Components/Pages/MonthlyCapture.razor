@@ -1,0 +1,47 @@
+﻿@page "/monthlyCapture"
+@using FyFi.CustomerInterface.Classes
+@rendermode InteractiveServer
+
+
+<h3>Monthly Capture</h3>
+
+<ul>
+    @foreach (var item in captureItems)
+    {
+        <li>@item.Title</li>
+        <li>@item.Amount</li>
+    }
+</ul>
+
+<p>TOTAL: </p>
+<p>@totalAmount</p>
+
+<input placeholder="Cash..." @bind="newCaptureItemTitle" />
+<input placeholder="15" @bind="newCaptureItemAmount" />
+
+
+<button @onclick="AddCaptureItem">Add</button>
+
+@code {
+    private List<CaptureItem> captureItems = new();
+    private string? newCaptureItemTitle;
+    private int newCaptureItemAmount;
+
+    private decimal totalAmount;
+
+    private void AddCaptureItem()
+    {
+        if (!String.IsNullOrWhiteSpace(newCaptureItemTitle) && 
+            newCaptureItemAmount > 0)
+        {
+            captureItems.Add(new CaptureItem { Title = newCaptureItemTitle, Amount = newCaptureItemAmount });
+
+            totalAmount += newCaptureItemAmount;
+
+            //Reset
+            newCaptureItemTitle = string.Empty;
+            newCaptureItemAmount = 0;
+
+        }
+    }
+}

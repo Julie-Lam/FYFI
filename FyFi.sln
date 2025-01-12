@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.Core", "FyFi.Core\FyFi.Core.csproj", "{C1658D91-0247-44D7-8458-2ADB9CF15DBE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.Domain", "FyFi.Domain\FyFi.Domain.csproj", "{1F3DB1CD-457E-4617-BB29-B1589F088738}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.Infrastructure", "FyFi.Infrastructure\FyFi.Infrastructure.csproj", "{3378C805-0B26-4984-B9CE-7CB6E8A4D9F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.API", "FyFi.API\FyFi.API.csproj", "{D336E5EC-74B8-4A9A-9DF5-CFD064B9A052}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.Test", "FyFi.Test\FyFi.Test.csproj", "{9DB68C5E-A4BC-40D0-86CC-2904803F002F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FyFi.CustomerInterface", "FyFi.CustomerInterface\FyFi.CustomerInterface.csproj", "{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1658D91-0247-44D7-8458-2ADB9CF15DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1658D91-0247-44D7-8458-2ADB9CF15DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1658D91-0247-44D7-8458-2ADB9CF15DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1658D91-0247-44D7-8458-2ADB9CF15DBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F3DB1CD-457E-4617-BB29-B1589F088738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F3DB1CD-457E-4617-BB29-B1589F088738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F3DB1CD-457E-4617-BB29-B1589F088738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F3DB1CD-457E-4617-BB29-B1589F088738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3378C805-0B26-4984-B9CE-7CB6E8A4D9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3378C805-0B26-4984-B9CE-7CB6E8A4D9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3378C805-0B26-4984-B9CE-7CB6E8A4D9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3378C805-0B26-4984-B9CE-7CB6E8A4D9F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D336E5EC-74B8-4A9A-9DF5-CFD064B9A052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D336E5EC-74B8-4A9A-9DF5-CFD064B9A052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D336E5EC-74B8-4A9A-9DF5-CFD064B9A052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D336E5EC-74B8-4A9A-9DF5-CFD064B9A052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB68C5E-A4BC-40D0-86CC-2904803F002F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB68C5E-A4BC-40D0-86CC-2904803F002F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB68C5E-A4BC-40D0-86CC-2904803F002F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB68C5E-A4BC-40D0-86CC-2904803F002F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3716B6D0-A355-4755-A80F-7662156D75FA}
+	EndGlobalSection
+EndGlobal
