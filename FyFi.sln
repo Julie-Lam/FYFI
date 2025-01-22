@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.API", "FyFi.API\FyFi.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.Test", "FyFi.Test\FyFi.Test.csproj", "{9DB68C5E-A4BC-40D0-86CC-2904803F002F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FyFi.CustomerInterface", "FyFi.CustomerInterface\FyFi.CustomerInterface.csproj", "{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.CustomerInterface", "FyFi.CustomerInterface\FyFi.CustomerInterface.csproj", "{28642FEB-3949-41FE-B2D7-1D41ECB0FBA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,17 +4,28 @@
 
 
 <h3>Monthly Capture</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
 
-<ul>
-    @foreach (var item in captureItems)
-    {
-        <li>@item.Title</li>
-        <li>@item.Amount</li>
-    }
-</ul>
+        @foreach (var item in captureItems)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Amount</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<p>TOTAL: </p>
-<p>@totalAmount</p>
+
+
+<p>TOTAL: $@totalAmount</p>
 
 <input placeholder="Cash..." @bind="newCaptureItemTitle" />
 <input placeholder="15" @bind="newCaptureItemAmount" />
