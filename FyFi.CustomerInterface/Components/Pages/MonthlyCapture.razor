@@ -4,10 +4,12 @@
 
 
 <h3>Monthly Capture</h3>
+<InputDate TValue="DateOnly" @bind-Value="CaptureDate" Placeholder="Enter Capture Date" />
+
 <table class="table">
     <thead>
         <tr>
-            <th>Title</th>
+            <th>Title/Description</th>
             <th>Amount</th>
         </tr>
     </thead>
@@ -27,16 +29,19 @@
 
 <p>TOTAL: $@totalAmount</p>
 
+<h4>Enter Assets</h4>
 <input placeholder="Cash..." @bind="newCaptureItemTitle" />
 <input placeholder="15" @bind="newCaptureItemAmount" />
 
-
 <button @onclick="AddCaptureItem">Add</button>
+
+<button @onclick="SaveMonthlyCapture">Save Monthly Capture</button>
 
 @code {
     private List<CaptureItem> captureItems = new();
     private string? newCaptureItemTitle;
     private int newCaptureItemAmount;
+    private DateOnly CaptureDate = DateOnly.FromDateTime(DateTime.Now); 
 
     private decimal totalAmount;
 
@@ -54,5 +59,10 @@
             newCaptureItemAmount = 0;
 
         }
+    }
+
+    private void SaveMonthlyCapture()
+    {
+        
     }
 }

@@ -1,0 +1,81 @@
+﻿@page "/financialForcaster"
+@using FyFi.CustomerInterface.Classes
+
+<h3>FinancialForcast</h3>
+
+
+<input placeholder="Enter how much you're saving annually" @bind="UserSavingsDOM" />
+<input placeholder="Enter current savings" @bind="UserCurrentSavingsDOM" /> 
+<input placeholder="Enter savings account interest rate %" @bind="UserSavingsInterestRateDOM" />
+
+<button @onclick="ForcastFinances">Forcast</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Savings Rate (Dollars)</th>
+            <th>Savings (Accrued)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var financialForcastYear in FinancialForcast.FinancialForcastYears)
+        {
+            <tr>
+                <td>@financialForcastYear.Year</td>
+                <td>@FinancialForcast.SavingsRateDollar </td>
+                <td>@financialForcastYear.SavingsAccrued</td>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+
+@code {
+    private decimal? UserSuperDOM;
+    private decimal? UserSavingsDOM;
+    private decimal? UserCurrentSavingsRateDOM;
+    private decimal? UserCurrentSavingsDOM;
+    private decimal? UserSavingsInterestRateDOM;
+
+
+    private const int ForcastPeriod = 5;
+    private FinancialForcast FinancialForcast = new FinancialForcast(); 
+
+
+    private void ForcastFinances()
+    {
+        //foreach year, the savings accrued will change 
+        //Create a list of as many objects as forcast years 
+        //Foreach item in list, calculate savings accrued = 
+        FinancialForcast.InitialSavings = UserCurrentSavingsDOM.HasValue ? UserCurrentSavingsDOM.Value : 0;
+        FinancialForcast.SavingsRateDollar = UserSavingsDOM.HasValue ? UserSavingsDOM.Value : 0; 
+
+        FinancialForcast.FinancialForcastYears = new List<FinancialForcastYear>(); 
+
+
+        var accruedSavings = 0M; 
+        for (int i = 0; i <= ForcastPeriod; i++)
+        {
+            if (i == 0)
+            {
+                accruedSavings = FinancialForcast.InitialSavings;
+            }
+
+            if (i > 0)
+            {
+                accruedSavings += FinancialForcast.SavingsRateDollar;
+            }
+
+            FinancialForcast.FinancialForcastYears.Add(new FinancialForcastYear()
+            {
+                Year = i,
+                SavingsAccrued = accruedSavings
+            }); 
+        }
+
+    }
+
+}
