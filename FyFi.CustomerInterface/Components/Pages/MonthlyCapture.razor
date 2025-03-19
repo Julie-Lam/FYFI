@@ -1,5 +1,6 @@
 ﻿@page "/monthlyCapture"
 @using FyFi.CustomerInterface.Classes
+@using FyFi.CustomerInterface.DatabaseLayer
 @rendermode InteractiveServer
 
 
@@ -15,11 +16,11 @@
     </thead>
     <tbody>
 
-        @foreach (var item in captureItems)
+        @foreach (var item in CaptureItems)
         {
             <tr>
-                <td>@item.Title</td>
-                <td>@item.Amount</td>
+                <td>@item.ItemName</td>
+                <td>@item.ItemAmount</td>
             </tr>
         }
     </tbody>
@@ -38,19 +39,26 @@
 <button @onclick="SaveMonthlyCapture">Save Monthly Capture</button>
 
 @code {
-    private List<CaptureItem> captureItems = new();
+    private List<MonthlyCaptureItem> CaptureItems = new();
     private string? newCaptureItemTitle;
     private int newCaptureItemAmount;
     private DateOnly CaptureDate = DateOnly.FromDateTime(DateTime.Now); 
 
     private decimal totalAmount;
 
+    protected override void OnInitialized()
+    {
+        var dbHelper = new DatabaseHelper(); 
+        var monthlyCaptureItem = dbHelper.GetMonthlyCaptureItemById(1); 
+        CaptureItems.Add(monthlyCaptureItem);
+    }
+
     private void AddCaptureItem()
     {
         if (!String.IsNullOrWhiteSpace(newCaptureItemTitle) && 
             newCaptureItemAmount > 0)
         {
-            captureItems.Add(new CaptureItem { Title = newCaptureItemTitle, Amount = newCaptureItemAmount });
+            CaptureItems.Add(new MonthlyCaptureItem { ItemName = newCaptureItemTitle, ItemAmount = newCaptureItemAmount });
 
             totalAmount += newCaptureItemAmount;
 
