@@ -3,9 +3,9 @@
 @using FyFi.CustomerInterface.DatabaseLayer
 @rendermode InteractiveServer
 
-
+@* TODO @inject a MonthlyCaptureService to Dependency Inject the service and remove direct access to classes and db layer*@
 <h3>Monthly Capture</h3>
-<InputDate TValue="DateOnly" @bind-Value="CaptureDate" Placeholder="Enter Capture Date" />
+@* <InputDate TValue="DateOnly" @bind-Value="CaptureDate" Placeholder="Enter Capture Date" /> *@
 
 <table class="table">
     <thead>
@@ -42,7 +42,6 @@
     private List<MonthlyCaptureItem> CaptureItems = new();
     private string? newCaptureItemTitle;
     private int newCaptureItemAmount;
-    private DateOnly CaptureDate = DateOnly.FromDateTime(DateTime.Now); 
 
     private decimal totalAmount;
 
@@ -71,6 +70,15 @@
 
     private void SaveMonthlyCapture()
     {
-        
+        var monthlyCapture = new MonthlyCaptureCls()
+        {
+            MonthlyCaptureDate = DateTime.Now,
+            CaptureItems = this.CaptureItems
+        }; 
+
+
+        var dbHelper = new DatabaseHelper();
+        dbHelper.SaveMonthlyCapture(monthlyCapture);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FyFi.CustomerInterface.Classes;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace FyFi.CustomerInterface.DatabaseLayer
 {
@@ -9,21 +10,23 @@ namespace FyFi.CustomerInterface.DatabaseLayer
 
         private readonly string _connectionString = "data source=DESKTOP-O06HF0H;initial catalog=FyfiDatabase;trusted_connection=true";
 
-        public MonthlyCapture GetMonthlyCaptureById(int monthlyCaptureId) 
+        public MonthlyCaptureCls GetMonthlyCaptureById(int monthlyCaptureId) 
         {
 
-            MonthlyCapture? monthlyCapture = null; 
+            MonthlyCaptureCls? monthlyCapture = null;
 
-            var query = "SELECT * FROM MonthlyCapture WHERE MonthlyCaptureId = " + monthlyCaptureId;
+            var query = "SELECT * FROM MonthlyCapture WHERE MonthlyCaptureId = @monthlyCaptureId";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, conn);
+
                 command.Connection.Open();
+                command.Parameters.Add("@monthlyCaptureId", SqlDbType.Int).Value = monthlyCaptureId;
                 var reader = command.ExecuteReader();
 
                 while (reader.Read()) 
                 {
-                    monthlyCapture = new MonthlyCapture()
+                    monthlyCapture = new MonthlyCaptureCls()
                     {
                         MonthlyCaptureId = (int)reader["MonthlyCaptureId"],
                         MonthlyCaptureDate = (DateTime)reader["MonthlyCaptureDate"]
@@ -40,11 +43,12 @@ namespace FyFi.CustomerInterface.DatabaseLayer
         {
             MonthlyCaptureItem? monthlyCaptureItem = null; 
 
-            var query = "SELECT * FROM MonthlyCaptureItem WHERE MonthlyCaptureItemId = " + monthlyCaptureItemId;
+            var query = "SELECT * FROM MonthlyCaptureItem WHERE MonthlyCaptureItemId = @monthlyCaptureItemId";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, conn);
+                command.Parameters.Add("@monthlyCaptureItemId", SqlDbType.Int).Value = monthlyCaptureItemId;
                 command.Connection.Open(); 
                 var reader = command.ExecuteReader();
 
@@ -64,6 +68,27 @@ namespace FyFi.CustomerInterface.DatabaseLayer
 
         }
 
+        public int SaveMonthlyCapture(MonthlyCaptureCls monthlyCapture) 
+        {
+            var affectedRows = 0; 
+
+            var query = "INSERT INTO MonthlyCapture (MonthlyCaptureDate) " +
+                        $"VALUES (@captureDate)";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, conn);
+                command.Parameters.Add("@captureDate", SqlDbType.DateTime).Value = monthlyCapture.MonthlyCaptureDate;
+
+                command.Connection.Open();
+
+                affectedRows = command.ExecuteNonQuery();
+
+            }
+
+            return affectedRows; 
+
+        }
 
     }
 }

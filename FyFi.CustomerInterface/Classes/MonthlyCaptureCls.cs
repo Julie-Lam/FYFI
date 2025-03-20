@@ -1,6 +1,6 @@
 ﻿namespace FyFi.CustomerInterface.Classes
 {
-    public class MonthlyCapture
+    public class MonthlyCaptureCls
     {
         public int MonthlyCaptureId { get; set; }
         public DateTime? MonthlyCaptureDate { get; set; }
