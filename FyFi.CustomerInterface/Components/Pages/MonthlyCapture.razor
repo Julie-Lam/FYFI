@@ -1,9 +1,9 @@
 ﻿@page "/monthlyCapture"
 @using FyFi.CustomerInterface.Classes
-@using FyFi.CustomerInterface.DatabaseLayer
+@using FyFi.CustomerInterface.Services
 @rendermode InteractiveServer
+@inject IMonthlyCaptureService MonthlyCaptureService
 
-@* TODO @inject a MonthlyCaptureService to Dependency Inject the service and remove direct access to classes and db layer*@
 <h3>Monthly Capture</h3>
 @* <InputDate TValue="DateOnly" @bind-Value="CaptureDate" Placeholder="Enter Capture Date" /> *@
 
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
 
-        @foreach (var item in CaptureItems)
+        @foreach (var item in MonthlyCaptureCls.CaptureItems)
         {
             <tr>
                 <td>@item.ItemName</td>
@@ -36,20 +36,18 @@
 
 <button @onclick="AddCaptureItem">Add</button>
 
-<button @onclick="SaveMonthlyCapture">Save Monthly Capture</button>
+<button @onclick="SaveUpdateMonthlyCapture">Save Monthly Capture</button>
 
 @code {
-    private List<MonthlyCaptureItem> CaptureItems = new();
+    private MonthlyCaptureCls MonthlyCaptureCls = new(); 
     private string? newCaptureItemTitle;
     private int newCaptureItemAmount;
 
-    private decimal totalAmount;
+    private decimal totalAmount;  
 
     protected override void OnInitialized()
     {
-        var dbHelper = new DatabaseHelper(); 
-        var monthlyCaptureItem = dbHelper.GetMonthlyCaptureItemById(1); 
-        CaptureItems.Add(monthlyCaptureItem);
+        MonthlyCaptureCls = MonthlyCaptureService.LoadMonthlyCaptureById(1); 
     }
 
     private void AddCaptureItem()
@@ -57,7 +55,14 @@
         if (!String.IsNullOrWhiteSpace(newCaptureItemTitle) && 
             newCaptureItemAmount > 0)
         {
-            CaptureItems.Add(new MonthlyCaptureItem { ItemName = newCaptureItemTitle, ItemAmount = newCaptureItemAmount });
+            MonthlyCaptureCls.CaptureItems.Add(
+                new MonthlyCaptureItem 
+                { 
+                    MonthlyCaptureId = MonthlyCaptureCls.MonthlyCaptureId, 
+                    ItemName = newCaptureItemTitle, 
+                    ItemAmount = newCaptureItemAmount 
+                }
+            );
 
             totalAmount += newCaptureItemAmount;
 
@@ -68,17 +73,9 @@
         }
     }
 
-    private void SaveMonthlyCapture()
+    private void SaveUpdateMonthlyCapture()
     {
-        var monthlyCapture = new MonthlyCaptureCls()
-        {
-            MonthlyCaptureDate = DateTime.Now,
-            CaptureItems = this.CaptureItems
-        }; 
-
-
-        var dbHelper = new DatabaseHelper();
-        dbHelper.SaveMonthlyCapture(monthlyCapture);
+        MonthlyCaptureService.SaveUpdateMonthlyCapture(MonthlyCaptureCls);
 
     }
 }

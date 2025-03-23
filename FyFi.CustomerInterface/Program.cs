@@ -1,4 +1,5 @@
 using FyFi.CustomerInterface.Components;
+using FyFi.CustomerInterface.Services;
 
 namespace FyFi.CustomerInterface
 {
@@ -12,6 +13,7 @@ namespace FyFi.CustomerInterface
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            builder.Services.AddSingleton<IMonthlyCaptureService, MonthlyCaptureService>(); 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
