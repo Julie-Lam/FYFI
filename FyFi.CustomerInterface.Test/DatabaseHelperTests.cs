@@ -1,5 +1,5 @@
-using FyFi.CustomerInterface.Classes;
-using FyFi.CustomerInterface.DatabaseLayer;
+using FyFi.Domain.Classes;
+using FyFi.Infrastructure.DatabaseLayer;
 
 namespace FyFi.CustomerInterface.Test
 {
@@ -114,16 +114,23 @@ namespace FyFi.CustomerInterface.Test
 
         }
 
-        //[Test]
-        //public void Test_UpdateMonthlyCapture()
-        //{
+        [Test]
+        public void Test_DeleteMonthlyCaptureItemById()
+        {
 
-        //}
+            this.Test_GetMonthlyCaptureById();
 
-        //[Test]
-        //public void Test_UpdateMonthlyCapture_With_CaptureItem()
-        //{
+            var monthlyCapture = _DbHelper.GetMonthlyCaptureById(1);
+            var lastCaptureItemId = monthlyCapture.CaptureItems.Last().MonthlyCaptureItemId; 
+            var rows = _DbHelper.DeleteMonthlyCaptureItemById(lastCaptureItemId); 
 
-        //}
+            Assert.IsTrue(rows == 1);
+
+            var monthlyCaptureItem = _DbHelper.GetMonthlyCaptureItemById(lastCaptureItemId); 
+            Assert.IsTrue(monthlyCaptureItem == null);
+
+        }
+
+
     }
 }

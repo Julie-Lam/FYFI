@@ -1,4 +1,4 @@
-﻿namespace FyFi.CustomerInterface.Classes
+﻿namespace FyFi.Domain.Classes
 {
 
     public class FinancialForcast

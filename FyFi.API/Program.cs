@@ -1,5 +1,3 @@
-using FyFi.Core;
-using FyFi.Infrastructure;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -36,7 +34,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //Register services 
-builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>(); 
+//builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>(); 
 
 
 var app = builder.Build();

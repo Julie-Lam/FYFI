@@ -1,6 +1,6 @@
 ﻿@page "/monthlyCapture"
-@using FyFi.CustomerInterface.Classes
-@using FyFi.CustomerInterface.Services
+@using FyFi.Domain.Classes
+@using FyFi.Domain.Interfaces
 @rendermode InteractiveServer
 @inject IMonthlyCaptureService MonthlyCaptureService
 
@@ -12,6 +12,7 @@
         <tr>
             <th>Title/Description</th>
             <th>Amount</th>
+            @* <th>Action</th> *@
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <tr>
                 <td>@item.ItemName</td>
                 <td>@item.ItemAmount</td>
+                <td><button @onclick="() => DeleteCaptureItem(item)">Delete</button></td>
             </tr>
         }
     </tbody>
@@ -77,5 +79,11 @@
     {
         MonthlyCaptureService.SaveUpdateMonthlyCapture(MonthlyCaptureCls);
 
+    }
+
+    private void DeleteCaptureItem(MonthlyCaptureItem captureItem)
+    {
+        MonthlyCaptureService.DeleteMonthlyCaptureItem(captureItem.MonthlyCaptureItemId);
+        MonthlyCaptureCls.CaptureItems.Remove(captureItem);
     }
 }
