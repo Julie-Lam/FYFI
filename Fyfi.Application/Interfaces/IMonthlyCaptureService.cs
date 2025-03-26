@@ -1,6 +1,6 @@
 ﻿using FyFi.Domain.Classes;
 
-namespace FyFi.Domain.Interfaces
+namespace Fyfi.Application.Interfaces
 {
     public interface IMonthlyCaptureService
     {

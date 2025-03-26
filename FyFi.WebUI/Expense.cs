@@ -1,4 +1,4 @@
-﻿namespace FyFi.CustomerInterface
+﻿namespace FyFi.WebUI
 {
     public class Expense
     {

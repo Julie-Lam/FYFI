@@ -1,8 +1,11 @@
+using Fyfi.Application;
+using Fyfi.Application.Interfaces;
 using Fyfi.Application.Services;
-using FyFi.Domain.Interfaces;
+using FyFi.Infrastructure;
+using FyFi.Infrastructure.DatabaseLayer;
 using FyFi.WebUI.Components;
 
-namespace FyFi.CustomerInterface
+namespace FyFi.WebUI
 {
     public class Program
     {
@@ -14,7 +17,13 @@ namespace FyFi.CustomerInterface
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            builder.Services.AddSingleton<IMonthlyCaptureService, MonthlyCaptureService>(); 
+            //Register dependencies
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure();
+
+
+            builder.Services.AddSingleton<IDatabaseHelper, DatabaseHelper>();
+            builder.Services.AddSingleton<IMonthlyCaptureService, MonthlyCaptureService>();
 
             var app = builder.Build();
 
@@ -38,3 +47,4 @@ namespace FyFi.CustomerInterface
         }
     }
 }
+     

@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fyfi.Application\Fyfi.Application.csproj" />
-    <ProjectReference Include="..\FyFi.Domain\FyFi.Domain.csproj" />
     <ProjectReference Include="..\FyFi.Infrastructure\FyFi.Infrastructure.csproj" />
   </ItemGroup>
 

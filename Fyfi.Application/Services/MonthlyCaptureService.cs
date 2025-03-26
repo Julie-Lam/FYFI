@@ -1,15 +1,17 @@
-﻿using FyFi.Domain.Classes;
-using FyFi.Domain.Interfaces;
+﻿using Fyfi.Application.Interfaces;
+using FyFi.Domain.Classes;
 
 namespace Fyfi.Application.Services
 {
     public class MonthlyCaptureService : IMonthlyCaptureService
     {
 
-        //private IDatabaseHelper _dbHelper = new DatabaseHelper();
+        private IDatabaseHelper _dbHelper; 
 
-        private IDatabaseHelper _dbHelper; //TODO: How do we remove the application layer dependency on the infrastructure? 
-
+        public MonthlyCaptureService(IDatabaseHelper dbHelper) 
+        {
+            _dbHelper = dbHelper; 
+        }
         public MonthlyCaptureCls LoadMonthlyCaptureById(int monthlyCaptureId)
         {
             return _dbHelper.GetMonthlyCaptureById(monthlyCaptureId);

@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FyFi.Domain\FyFi.Domain.csproj" />
+    <ProjectReference Include="..\Fyfi.Application\Fyfi.Application.csproj" />
   </ItemGroup>
 
 </Project>
