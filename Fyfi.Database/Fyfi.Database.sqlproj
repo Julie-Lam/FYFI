@@ -62,5 +62,6 @@
   <ItemGroup>
     <Build Include="dbo\Tables\MonthlyCapture.sql" />
     <Build Include="dbo\Tables\MonthlyCaptureItem.sql" />
+    <Build Include="dbo\Tables\TestNewTable.sql" />
   </ItemGroup>
 </Project>
