@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fyfi.Application", "Fyfi.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FyFi.WebUI", "FyFi.WebUI\FyFi.WebUI.csproj", "{773DC0E5-5AB6-4898-B523-2EEAB6391840}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Fyfi.Database", "Fyfi.Database\Fyfi.Database.sqlproj", "{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,12 @@ Global
 		{773DC0E5-5AB6-4898-B523-2EEAB6391840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{773DC0E5-5AB6-4898-B523-2EEAB6391840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{773DC0E5-5AB6-4898-B523-2EEAB6391840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D0D25C-D31A-4544-8A76-98D93B2CC1C5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
