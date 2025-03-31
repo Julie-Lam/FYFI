@@ -1,9 +1,10 @@
 using Fyfi.Application;
-using Fyfi.Application.Interfaces;
 using Fyfi.Application.Services;
+using FyFi.Domain.Interfaces;
 using FyFi.Infrastructure;
 using FyFi.Infrastructure.DatabaseLayer;
 using FyFi.WebUI.Components;
+using FyFi.Domain.Interfaces;
 
 namespace FyFi.WebUI
 {

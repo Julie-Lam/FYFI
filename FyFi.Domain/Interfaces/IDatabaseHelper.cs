@@ -1,6 +1,6 @@
 ﻿using FyFi.Domain.Classes;
 
-namespace Fyfi.Application.Interfaces
+namespace FyFi.Domain.Interfaces
 {
     public interface IDatabaseHelper
     {

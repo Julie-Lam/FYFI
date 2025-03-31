@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using FyFi.Domain.Classes;
-using Fyfi.Application.Interfaces;
+using FyFi.Domain.Interfaces;
 
 namespace FyFi.Infrastructure.DatabaseLayer
 {

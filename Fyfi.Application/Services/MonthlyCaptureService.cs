@@ -1,5 +1,5 @@
-﻿using Fyfi.Application.Interfaces;
-using FyFi.Domain.Classes;
+﻿using FyFi.Domain.Classes;
+using FyFi.Domain.Interfaces;
 
 namespace Fyfi.Application.Services
 {
