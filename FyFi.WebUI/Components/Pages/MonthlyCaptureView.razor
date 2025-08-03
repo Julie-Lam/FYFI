@@ -5,7 +5,6 @@
 @inject IMonthlyCaptureService MonthlyCaptureService
 
 <h3>Monthly Capture</h3>
-@* <InputDate TValue="DateOnly" @bind-Value="CaptureDate" Placeholder="Enter Capture Date" /> *@
 
 <table class="table">
     <thead>
@@ -17,7 +16,7 @@
     </thead>
     <tbody>
 
-        @foreach (var item in MonthlyCaptureCls.CaptureItems)
+        @foreach (var item in _monthlyCapture.CaptureItems)
         {
             <tr>
                 <td>@item.ItemName</td>
@@ -41,7 +40,7 @@
 <button @onclick="SaveUpdateMonthlyCapture">Save Monthly Capture</button>
 
 @code {
-    private MonthlyCaptureCls MonthlyCaptureCls = new(); 
+    private MonthlyCapture _monthlyCapture = new MonthlyCapture();
     private string? newCaptureItemTitle;
     private int newCaptureItemAmount;
 
@@ -49,7 +48,7 @@
 
     protected override void OnInitialized()
     {
-        MonthlyCaptureCls = MonthlyCaptureService.LoadMonthlyCaptureById(1); 
+        _monthlyCapture = MonthlyCaptureService.LoadMonthlyCaptureById(1); 
     }
 
     private void AddCaptureItem()
@@ -57,10 +56,10 @@
         if (!String.IsNullOrWhiteSpace(newCaptureItemTitle) && 
             newCaptureItemAmount > 0)
         {
-            MonthlyCaptureCls.CaptureItems.Add(
+            _monthlyCapture.CaptureItems.Add(
                 new MonthlyCaptureItem 
                 { 
-                    MonthlyCaptureId = MonthlyCaptureCls.MonthlyCaptureId, 
+                    MonthlyCaptureId = _monthlyCapture.MonthlyCaptureId, 
                     ItemName = newCaptureItemTitle, 
                     ItemAmount = newCaptureItemAmount 
                 }
@@ -77,13 +76,13 @@
 
     private void SaveUpdateMonthlyCapture()
     {
-        MonthlyCaptureService.SaveUpdateMonthlyCapture(MonthlyCaptureCls);
+        MonthlyCaptureService.SaveUpdateMonthlyCapture(_monthlyCapture);
 
     }
 
     private void DeleteCaptureItem(MonthlyCaptureItem captureItem)
     {
         MonthlyCaptureService.DeleteMonthlyCaptureItem(captureItem.MonthlyCaptureItemId);
-        MonthlyCaptureCls.CaptureItems.Remove(captureItem);
+        _monthlyCapture.CaptureItems.Remove(captureItem);
     }
 }

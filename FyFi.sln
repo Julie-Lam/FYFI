@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A81A8473-E79B-40F2-82A6-D01777EB325F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fyfi.Application", "Fyfi.Application\Fyfi.Application.csproj", "{EC103CB8-AFDA-43DD-B241-ABA99324781B}"

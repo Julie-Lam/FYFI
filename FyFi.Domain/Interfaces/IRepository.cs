@@ -2,14 +2,14 @@
 
 namespace FyFi.Domain.Interfaces
 {
-    public interface IDatabaseHelper
+    public interface IRepository
     {
         int DeleteMonthlyCaptureItemById(int monthlyCaptureItemId);
-        MonthlyCaptureCls GetMonthlyCaptureById(int monthlyCaptureId);
+        MonthlyCapture GetMonthlyCaptureById(int monthlyCaptureId);
         MonthlyCaptureItem GetMonthlyCaptureItemById(int monthlyCaptureItemId);
-        int SaveMonthlyCapture(ref MonthlyCaptureCls monthlyCapture);
+        int SaveMonthlyCapture(ref MonthlyCapture monthlyCapture);
         int SaveMonthlyCaptureItem(MonthlyCaptureItem captureItem, int monthlyCaptureId);
-        int UpdateMonthlyCapture(MonthlyCaptureCls monthlyCapture);
+        int UpdateMonthlyCapture(MonthlyCapture monthlyCapture);
         int UpdateMonthlyCaptureItem(MonthlyCaptureItem captureItem);
     }
 }

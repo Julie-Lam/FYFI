@@ -6,16 +6,19 @@ using FyFi.Domain.Interfaces;
 namespace FyFi.Infrastructure.DatabaseLayer
 {
 
-    public class DatabaseHelper : IDatabaseHelper
+    public class Repository : IRepository
     {
 
         private readonly string _connectionString = "data source=DESKTOP-O06HF0H;initial catalog=FyfiDatabase;trusted_connection=true";
 
-        public MonthlyCaptureCls GetMonthlyCaptureById(int monthlyCaptureId)
+        public MonthlyCapture GetMonthlyCaptureById(int monthlyCaptureId)
         {
 
-            MonthlyCaptureCls? monthlyCapture = null;
+            MonthlyCapture? monthlyCapture = null;
 
+
+            monthlyCapture = new MonthlyCapture() { MonthlyCaptureId = 1, MonthlyCaptureDate = DateTime.Now};
+            /*
             var query = "SELECT * FROM MonthlyCapture WHERE MonthlyCaptureId = @monthlyCaptureId";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -38,6 +41,7 @@ namespace FyFi.Infrastructure.DatabaseLayer
                 }
 
             }
+            */
 
             return monthlyCapture;
         }
@@ -102,7 +106,7 @@ namespace FyFi.Infrastructure.DatabaseLayer
         }
 
 
-        public int SaveMonthlyCapture(ref MonthlyCaptureCls monthlyCapture)
+        public int SaveMonthlyCapture(ref MonthlyCapture monthlyCapture)
         {
             var affectedRows = 0;
 
@@ -133,7 +137,7 @@ namespace FyFi.Infrastructure.DatabaseLayer
 
         }
 
-        public int UpdateMonthlyCapture(MonthlyCaptureCls monthlyCapture)
+        public int UpdateMonthlyCapture(MonthlyCapture monthlyCapture)
         {
             if (monthlyCapture.MonthlyCaptureId == 0)
                 throw new Exception("Cannot update invalid monthly capture");

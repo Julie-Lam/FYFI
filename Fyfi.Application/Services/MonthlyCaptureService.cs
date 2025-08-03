@@ -6,33 +6,33 @@ namespace Fyfi.Application.Services
     public class MonthlyCaptureService : IMonthlyCaptureService
     {
 
-        private IDatabaseHelper _dbHelper; 
+        private IRepository _repository; 
 
-        public MonthlyCaptureService(IDatabaseHelper dbHelper) 
+        public MonthlyCaptureService(IRepository repository) 
         {
-            _dbHelper = dbHelper; 
+            _repository = repository; 
         }
-        public MonthlyCaptureCls LoadMonthlyCaptureById(int monthlyCaptureId)
+        public MonthlyCapture LoadMonthlyCaptureById(int monthlyCaptureId)
         {
-            return _dbHelper.GetMonthlyCaptureById(monthlyCaptureId);
+            return _repository.GetMonthlyCaptureById(monthlyCaptureId);
         }
 
 
-        public void SaveUpdateMonthlyCapture(MonthlyCaptureCls monthlyCapture)
+        public void SaveUpdateMonthlyCapture(MonthlyCapture monthlyCapture)
         {
             if (monthlyCapture.MonthlyCaptureId == 0)
             {
-                _dbHelper.SaveMonthlyCapture(ref monthlyCapture);
+                _repository.SaveMonthlyCapture(ref monthlyCapture);
             }
             else
             {
-                _dbHelper.UpdateMonthlyCapture(monthlyCapture);
+                _repository.UpdateMonthlyCapture(monthlyCapture);
             }
         }
 
         public void DeleteMonthlyCaptureItem(int monthlyCaptureItemId)
         {
-            _dbHelper.DeleteMonthlyCaptureItemById(monthlyCaptureItemId);
+            _repository.DeleteMonthlyCaptureItemById(monthlyCaptureItemId);
         }
 
     }

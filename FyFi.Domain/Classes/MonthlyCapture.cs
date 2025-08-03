@@ -1,7 +1,7 @@
 ﻿
 namespace FyFi.Domain.Classes
 {
-    public class MonthlyCaptureCls
+    public class MonthlyCapture
     {
         public int MonthlyCaptureId { get; set; }
         public DateTime? MonthlyCaptureDate { get; set; }

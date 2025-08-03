@@ -3,10 +3,14 @@
 
 <h3>FinancialForcast</h3>
 
+<label for="annualSavingsAmount"> Enter the amount you save per year </label>
+<input type="text" id="annualSavingsAmount" placeholder="1,000"  @bind="UserSavingsDOM" />
 
-<input placeholder="Enter how much you're saving annually" @bind="UserSavingsDOM" />
-<input placeholder="Enter current savings" @bind="UserCurrentSavingsDOM" /> 
-<input placeholder="Enter savings account interest rate %" @bind="UserSavingsInterestRateDOM" />
+<label for="currentSavingsAmount"> Enter the amount of savings you currently have</label>
+<input type="text" id="currentSavingsAmount"  placeholder="5,000" @bind="UserCurrentSavingsDOM" />
+
+<label for="annualInterestRate"> Enter the annual interest rate % of your Saving's account </label>
+<input type="text" id="annualInterestRate" placeholder="5.1" @bind="UserSavingsInterestRateDOM" />
 
 <button @onclick="ForcastFinances">Forcast</button>
 

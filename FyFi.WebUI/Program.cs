@@ -4,7 +4,6 @@ using FyFi.Domain.Interfaces;
 using FyFi.Infrastructure;
 using FyFi.Infrastructure.DatabaseLayer;
 using FyFi.WebUI.Components;
-using FyFi.Domain.Interfaces;
 
 namespace FyFi.WebUI
 {
@@ -23,7 +22,7 @@ namespace FyFi.WebUI
             builder.Services.AddInfrastructure();
 
 
-            builder.Services.AddSingleton<IDatabaseHelper, DatabaseHelper>();
+            builder.Services.AddSingleton<IRepository, Repository>();
             builder.Services.AddSingleton<IMonthlyCaptureService, MonthlyCaptureService>();
 
             var app = builder.Build();
