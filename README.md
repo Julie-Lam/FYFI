@@ -1,29 +1,3 @@
-# FYFI
+# FyFI
 
-
-## Dependency Diagram 
-
-
-      +-----------------+
-      |   Fyfi.WebUI    |
-      +--------+--------+
-               |
-               v
-      +-----------------+
-      | Fyfi.Application |
-      +--------+--------+
-               |
-               v
-      +-----------------+
-      | FYFI.D O M A I N |
-      +-----------------+
-               ^
-               |
-      +-----------------+
-      |Fyfi.Infrastructure|
-      +--------+---------+
-               ^
-               |
-      +-----------------+
-      |  Fyfi.Database   |
-      +-----------------+
+FyFi (For You FInance) Solution houses all projects necessary to support this product. 
