@@ -1,0 +1,9 @@
+﻿TODO: 
+- Persist a new forecast 
+	-> Allow the user to interact with the cli like a webpage e.g. create a new transaction, edit an existing one etc 
+	-> Finish the in-memory db or just go straight to a sql server db 
+
+
+- Implement basic user login 
+	-> Allow a user to login using username and password 
+	-> Once a user is logged in, allow them to see their calculated forecasts or edit any existing forecasts 
