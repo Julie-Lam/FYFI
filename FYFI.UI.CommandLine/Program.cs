@@ -1,85 +1,57 @@
-﻿namespace FyFi.UI.CommandLine
+﻿using FYFI.UI.CommandLine;
+
+namespace FyFi.UI.CommandLine
 {
     internal class Program
     {
+
+        static CommandLineService _cmdLineService { get; set; } = new CommandLineService();
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello!");
+            var argInput = _cmdLineService.GetArgInput("Enter an arg to specify the action you'd like to perform: New_Forecast", "Please enter a valid action from the provided list");
 
-            var isValidArgInput = false; 
-            do
+            switch (argInput)
             {
-                Console.WriteLine("Enter an arg to specify the action you'd like to perform: 1 (New_Forecast)");
-                var argInput = Console.ReadLine();
-
-                isValidArgInput = Enum.TryParse(typeof(FYFI_ACTION), argInput, out var argAction);
-                if (isValidArgInput == false)
+                case FYFI_ACTION.New_Forecast:
                 {
-                    Console.WriteLine($"{argInput} is not a valid action. Please enter a valid number");
-                }
-            } while (isValidArgInput == false); 
+                    var durationYears = _cmdLineService.GetDurationYearsInput("How many years would you like to predict in the future?", "Please enter a whole number");
+                    var savingsPerMonth = _cmdLineService.GetSavingsPerMonth("How much money are you saving per month? e.g. 2500.00", "Please enter a decimal number");
 
 
-
-            var yearCount = 0;
-            var savingsPerMonth = 0m; 
-
-            var isValidYearsInput = false; 
-            do
-            {
-                Console.WriteLine("How many years would you like to predict in the future?");
-                var yearsInput = Console.ReadLine();
-
-                isValidYearsInput = int.TryParse(yearsInput, out yearCount);
-                if (isValidYearsInput == false)
-                {
-                    Console.WriteLine($"{yearsInput} is not a number. Please enter a whole number");
-                }
-            } while (isValidYearsInput == false);
+                    //Calculate the forcast
+                    var forecastYears = _cmdLineService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
 
 
-            var isValidSavingsPerMonthInput = false;
-            do
-            {
-                Console.WriteLine("How much money are you saving per month? e.g. 2500.00");
-                var savingsPerMonthInput = Console.ReadLine();
+                    foreach (var year in forecastYears)
+                    {
+                        Console.WriteLine($"Year {year.YearNum} || Cash: {year.Cash.ToString("C")}");
+                    }
 
-                isValidSavingsPerMonthInput = decimal.TryParse(savingsPerMonthInput, out savingsPerMonth);
-                if (isValidSavingsPerMonthInput == false)
-                {
-                    Console.WriteLine($"{savingsPerMonthInput} is not a decimal. Please enter a decimal number");
+                    var shouldSaveForecastInput = _cmdLineService.GetSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
+
+                    if (shouldSaveForecastInput)
+                    { 
+                        //TODO: PERSIST SOMEWHERE 
+                    };
+
+
+                    break;
                 }
 
-            } while (isValidSavingsPerMonthInput == false);
-
-
-
-            var forecastYears = new List<ForecastYear>();
-            for (int i = 0; i < yearCount; i++)
-            {
-                var savingsPerYear = (decimal)savingsPerMonth * 12;
-
-                var forecastYear = new ForecastYear();
-                forecastYear.Cash = savingsPerYear;
-
-                if (i == 0)
+                case FYFI_ACTION.List_Saved_Forecasts:
                 {
-                    //do nothing; 
-                }
-                else
-                {
-                    forecastYear.Cash += forecastYears[i-1].Cash;
-                }
 
-                forecastYears.Add(forecastYear);
+                    //TODO: Get all the forecastYears from a db somewhere... 
+                    break; 
+                }
+                default:
+                { 
+                    break;
+                }
             }
 
 
-            foreach (var (year, yearNum) in forecastYears.Select((value, index) => (value, index+1)))
-            {
-                //var yearNum = year.i + 1
-                Console.WriteLine($"Year {yearNum} || Current Cash: {year.Cash}");
-            }
+
         }
 
 
@@ -88,12 +60,14 @@
 
     public class ForecastYear
     {
+        public int YearNum { get; set; }
         public decimal Cash { get; set; }
     }
 
     public enum FYFI_ACTION 
     {
-        New_Forecast = 1
+        New_Forecast = 1, 
+        List_Saved_Forecasts = 2
     }
 
 }

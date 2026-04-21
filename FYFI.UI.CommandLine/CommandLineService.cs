@@ -10,32 +10,63 @@ namespace FYFI.UI.CommandLine
     public class CommandLineService
     {
 
-        public FYFI_ACTION GetArgInput() 
+        public List<ForecastYear> GenerateFinancialOutlook(int durationInYears, decimal savingsPerMonth) 
         {
-            //FYFI_ACTION argAction; 
+            var forecastYears = new List<ForecastYear>();
+            for (int i = 0; i < durationInYears; i++)
+            {
+                var savingsPerYear = (decimal)savingsPerMonth * 12;
 
-            //var isValidArgInput = false;
-            //do
-            //{
-            //    Console.WriteLine("Enter an arg to specify the action you'd like to perform: 1 (New_Forecast)");
-            //    var argInput = Console.ReadLine();
+                var forecastYear = new ForecastYear();
+                forecastYear.YearNum = i + 1; 
+                forecastYear.Cash = savingsPerYear;
 
-            //    isValidArgInput = Enum.TryParse(argInput, out argAction);
-            //    if (isValidArgInput == false)
-            //    {
-            //        Console.WriteLine($"{argInput} is not a valid action. Please enter a valid number");
-            //    }
-            //} while (isValidArgInput == false);
+                if (i == 0)
+                {
+                    //do nothing; 
+                }
+                else
+                {
+                    forecastYear.Cash += forecastYears[i - 1].Cash;
+                }
 
+                forecastYears.Add(forecastYear);
+            }
 
-            //return argAction; 
+            return forecastYears; 
+        }
 
+        public FYFI_ACTION GetArgInput(string initialPrompt, string appendedErrorPrompt) 
+        {
 
-            FYFI_ACTION argAction = GetUserInputEnum<FYFI_ACTION>("Enter an arg to specify the action you'd like to perform: 1 (New_Forecast)", "Please enter a valid number");
+            FYFI_ACTION argAction = GetUserInputEnum<FYFI_ACTION>(initialPrompt, appendedErrorPrompt);
 
             return argAction; 
 
         }
+
+        public int GetDurationYearsInput(string initialPrompt, string appendedErrorPrompt) 
+        {
+            var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt); 
+
+            return durationYearsInput;
+        }
+
+        public decimal GetSavingsPerMonth(string initialPrompt, string appendedErrorPrompt)
+        {
+            var savingsPerMonth = GetUserInput<decimal>(initialPrompt, appendedErrorPrompt);
+
+            return savingsPerMonth; 
+        }
+
+
+        public bool GetSaveForecastInput(string initialPrompt, string appendedErrorPrompt)
+        {
+            var shouldSaveForecastInput = GetUserInput<bool>(initialPrompt, appendedErrorPrompt);
+
+            return shouldSaveForecastInput;
+        }
+
 
         internal T GetUserInput<T>(string initialPrompt, string errorPrompt = null) where T : IParsable<T>
         {
@@ -60,7 +91,7 @@ namespace FYFI.UI.CommandLine
 
         internal T GetUserInputEnum<T>(string initialPrompt, string errorPrompt = null) where T : struct, Enum
         {
-            T inputParsed;
+            T inputParsed = default(T);
             var isValidInput = false;
             do
             {
@@ -68,7 +99,7 @@ namespace FYFI.UI.CommandLine
                 var input = Console.ReadLine();
 
 
-                isValidInput = Enum.TryParse(input, out inputParsed);
+                isValidInput = Enum.TryParse(input, true, out inputParsed) && Enum.IsDefined(typeof(T), inputParsed);
                 if (isValidInput == false)
                 {
                     Console.WriteLine($"{input} is not a valid input. {errorPrompt}");
