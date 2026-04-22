@@ -1,4 +1,5 @@
 ﻿using FyFi.UI.CommandLine;
+using FYFI.Repository.InMemory.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,18 @@ namespace FYFI.UI.CommandLine
     public class CommandLineService
     {
 
-        public List<ForecastYear> GenerateFinancialOutlook(int durationInYears, decimal savingsPerMonth) 
+        public FiOutlook GenerateFinancialOutlook(int durationInYears, decimal savingsPerMonth) 
         {
-            var forecastYears = new List<ForecastYear>();
+            var financialOutlook = new FiOutlook();
+            financialOutlook.FiOutlookYears = new List<FiOutlookYear>(); 
+
             for (int i = 0; i < durationInYears; i++)
             {
                 var savingsPerYear = (decimal)savingsPerMonth * 12;
 
-                var forecastYear = new ForecastYear();
-                forecastYear.YearNum = i + 1; 
-                forecastYear.Cash = savingsPerYear;
+                var financialOutlookYear = new FiOutlookYear();
+                financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1); 
+                financialOutlookYear.Cash = savingsPerYear;
 
                 if (i == 0)
                 {
@@ -27,13 +30,13 @@ namespace FYFI.UI.CommandLine
                 }
                 else
                 {
-                    forecastYear.Cash += forecastYears[i - 1].Cash;
+                    financialOutlookYear.Cash += financialOutlook.FiOutlookYears[i - 1].Cash;
                 }
 
-                forecastYears.Add(forecastYear);
+                financialOutlook.FiOutlookYears.Add(financialOutlookYear);
             }
 
-            return forecastYears; 
+            return financialOutlook; 
         }
 
         public FYFI_ACTION GetArgInput(string initialPrompt, string appendedErrorPrompt) 
