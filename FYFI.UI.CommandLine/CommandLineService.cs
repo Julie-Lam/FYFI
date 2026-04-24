@@ -39,7 +39,7 @@ namespace FYFI.UI.CommandLine
             return financialOutlook; 
         }
 
-        public FYFI_ACTION GetArgInput(string initialPrompt, string appendedErrorPrompt) 
+        public FYFI_ACTION GetArgInput(string initialPrompt, string? appendedErrorPrompt = null) 
         {
 
             FYFI_ACTION argAction = GetUserInputEnum<FYFI_ACTION>(initialPrompt, appendedErrorPrompt);
@@ -48,14 +48,14 @@ namespace FYFI.UI.CommandLine
 
         }
 
-        public int GetDurationYearsInput(string initialPrompt, string appendedErrorPrompt) 
+        public int GetDurationYearsInput(string initialPrompt, string? appendedErrorPrompt = null) 
         {
             var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt); 
 
             return durationYearsInput;
         }
 
-        public decimal GetSavingsPerMonth(string initialPrompt, string appendedErrorPrompt)
+        public decimal GetSavingsPerMonth(string initialPrompt, string? appendedErrorPrompt = null)
         {
             var savingsPerMonth = GetUserInput<decimal>(initialPrompt, appendedErrorPrompt);
 
@@ -63,16 +63,25 @@ namespace FYFI.UI.CommandLine
         }
 
 
-        public bool GetSaveForecastInput(string initialPrompt, string appendedErrorPrompt)
+        public bool GetShouldSaveForecastInput(string initialPrompt, string? appendedErrorPrompt = null)
         {
-            var shouldSaveForecastInput = GetUserInput<bool>(initialPrompt, appendedErrorPrompt);
+            var shouldSaveForecastInput = GetUserInput<bool>(initialPrompt, appendedErrorPrompt = null);
 
             return shouldSaveForecastInput;
         }
 
-
-        internal T GetUserInput<T>(string initialPrompt, string errorPrompt = null) where T : IParsable<T>
+        public string GetFiOutlookNameInput(string initialPrompt, string? appendedErrorPrompt = null)
         {
+            var financialOutlookName = GetUserInput<string>(initialPrompt, appendedErrorPrompt);
+
+            return financialOutlookName;
+        }
+
+
+        internal T GetUserInput<T>(string initialPrompt, string? errorPrompt = null) where T : IParsable<T>
+        {
+            errorPrompt = errorPrompt ?? string.Empty;
+
             T inputParsed; 
             var isValidInput = false;
             do

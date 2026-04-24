@@ -1,4 +1,5 @@
-﻿using FYFI.UI.CommandLine;
+﻿using FYFI.Repository.InMemory.Migrations;
+using FYFI.UI.CommandLine;
 
 namespace FyFi.UI.CommandLine
 {
@@ -9,7 +10,9 @@ namespace FyFi.UI.CommandLine
         static FYFIRepository _repository { get; set; } = new FYFIRepository(); 
         static void Main(string[] args)
         {
-            var argInput = _cmdLineService.GetArgInput("Enter an arg to specify the action you'd like to perform: New_Forecast", "Please enter a valid action from the provided list");
+            var argOptions = (FYFI_ACTION[])Enum.GetValues(typeof(FYFI_ACTION)); 
+
+            var argInput = _cmdLineService.GetArgInput($"Enter an arg to specify the action you'd like to perform: {String.Join(", ", argOptions)}", "Please enter a valid action from the provided list");
 
             switch (argInput)
             {
@@ -28,10 +31,14 @@ namespace FyFi.UI.CommandLine
                         Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
                     }
 
-                    var shouldSaveForecastInput = _cmdLineService.GetSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
+                    var shouldSaveForecastInput = _cmdLineService.GetShouldSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
 
                     if (shouldSaveForecastInput)
                     {
+                        var fiOutlookName = _cmdLineService.GetFiOutlookNameInput("Please enter a memorable name for this financial outlook"); 
+
+                        financialOutlook.FiOutlookName = fiOutlookName;
+
                         _repository.UpsertFinancialOutlook(financialOutlook); 
                         
                     };
@@ -44,6 +51,13 @@ namespace FyFi.UI.CommandLine
                 {
 
                     //TODO: Get all the forecastYears from a db somewhere... 
+                    var fiOutlooks = _repository.GetAllFinancialOutlooks();
+
+                    foreach (var outlook in fiOutlooks)
+                    {
+                        Console.WriteLine($"ID: {outlook.FiOutlookId} || {outlook.FiOutlookName}"); 
+                    }
+
                     break; 
                 }
                 default:

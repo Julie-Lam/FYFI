@@ -16,5 +16,11 @@ namespace FYFI.UI.CommandLine
             _FYFIDbContext.FiOutlooks.Add(financialOutlook);
             _FYFIDbContext.SaveChanges(); 
         }
+
+        public List<FiOutlook> GetAllFinancialOutlooks()
+        {
+            var financialOutlooks = _FYFIDbContext.FiOutlooks.ToList();
+            return financialOutlooks; 
+        }
     }
 }

@@ -3,6 +3,7 @@
     public class FiOutlook
     {
         public int FiOutlookId { get; set; }
+        public string FiOutlookName { get; set; }
         public List<FiOutlookYear> FiOutlookYears { get; set; }
     }
 }
