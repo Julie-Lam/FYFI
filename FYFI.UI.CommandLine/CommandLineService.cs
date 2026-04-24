@@ -20,23 +20,47 @@ namespace FYFI.UI.CommandLine
             {
                 var savingsPerYear = (decimal)savingsPerMonth * 12;
 
-                var financialOutlookYear = new FiOutlookYear();
-                financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1); 
-                financialOutlookYear.Cash = savingsPerYear;
+                var fiOutlookYear = CalculateFinancialOutlookYear(financialOutlook, savingsPerYear, i); 
 
-                if (i == 0)
-                {
-                    //do nothing; 
-                }
-                else
-                {
-                    financialOutlookYear.Cash += financialOutlook.FiOutlookYears[i - 1].Cash;
-                }
+                //var financialOutlookYear = new FiOutlookYear();
+                //financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1);
+                //financialOutlookYear.SavingsYearly = savingsPerYear; 
+                ////financialOutlookYear.Cash = savingsPerYear;
 
-                financialOutlook.FiOutlookYears.Add(financialOutlookYear);
+                //if (i == 0)
+                //{ 
+                //    financialOutlookYear.Cash = savingsPerYear;
+                //    financialOutlook.FiOutlookYears.Add(financialOutlookYear);
+
+                //}
+
+
+                //financialOutlookYear.Cash += financialOutlook.FiOutlookYears[i - 1].Cash;
+
+                financialOutlook.FiOutlookYears.Add(fiOutlookYear);
             }
 
             return financialOutlook; 
+        }
+
+        private FiOutlookYear CalculateFinancialOutlookYear(FiOutlook financialOutlook, decimal savingsPerYear, int i) 
+        {
+            var financialOutlookYear = new FiOutlookYear();
+            financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1);
+            financialOutlookYear.SavingsYearly = savingsPerYear;
+            //financialOutlookYear.Cash = savingsPerYear;
+
+            if (i == 0)
+            {
+                financialOutlookYear.Cash = savingsPerYear;
+                return financialOutlookYear; 
+            }
+
+
+            financialOutlookYear.Cash = financialOutlook.FiOutlookYears[i - 1].Cash;
+            financialOutlookYear.Cash += savingsPerYear;
+
+            return financialOutlookYear; 
         }
 
         public FYFI_ACTION GetArgInput(string initialPrompt, string? appendedErrorPrompt = null) 
@@ -77,6 +101,19 @@ namespace FYFI.UI.CommandLine
             return financialOutlookName;
         }
 
+        public EDIT_OUTLOOK_OPTIONS GetEditOutlookOptionInput(string initialPrompt, string? appendedErrorPrompt = null)
+        {
+            EDIT_OUTLOOK_OPTIONS argAction = GetUserInputEnum<EDIT_OUTLOOK_OPTIONS>(initialPrompt, appendedErrorPrompt);
+
+            return argAction;
+        }
+
+        public int GetFiOutlookId(string initialPrompt, string? appendedErrorPrompt = null)
+        {
+            var fiOutlookId = GetUserInput<int>(initialPrompt, appendedErrorPrompt);
+
+            return fiOutlookId;
+        }
 
         internal T GetUserInput<T>(string initialPrompt, string? errorPrompt = null) where T : IParsable<T>
         {

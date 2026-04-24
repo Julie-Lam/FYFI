@@ -1,7 +1,7 @@
 ﻿TODO: 
 - Persist a new forecast 
-	-> Allow the user to interact with the cli like a webpage e.g. create a new transaction, edit an existing one etc 
-	-> Finish the in-memory db or just go straight to a sql server db 
+	-> Implement all the options for editing an existing outlook
+	-> implement rerunability so user can repeatedly choose what they want to do 
 
 
 - Implement basic user login 

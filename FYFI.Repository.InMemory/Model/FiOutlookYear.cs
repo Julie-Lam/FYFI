@@ -10,5 +10,8 @@ namespace FYFI.Repository.InMemory.Model
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Cash { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal SavingsYearly { get; set; }
     }
 }

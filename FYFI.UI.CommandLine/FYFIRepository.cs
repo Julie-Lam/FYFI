@@ -13,7 +13,18 @@ namespace FYFI.UI.CommandLine
         private FYFIDbContext _FYFIDbContext { get; set; } = new FYFIDbContext(); 
         public void UpsertFinancialOutlook(FiOutlook financialOutlook) 
         {
-            _FYFIDbContext.FiOutlooks.Add(financialOutlook);
+            var fiOutlook = _FYFIDbContext.FiOutlooks.First(o => o.FiOutlookId == financialOutlook.FiOutlookId); 
+
+            if (fiOutlook is null) 
+            {
+                _FYFIDbContext.FiOutlooks.Add(financialOutlook);
+            }
+
+            else
+            {
+                fiOutlook = financialOutlook; 
+            }
+
             _FYFIDbContext.SaveChanges(); 
         }
 
@@ -22,5 +33,12 @@ namespace FYFI.UI.CommandLine
             var financialOutlooks = _FYFIDbContext.FiOutlooks.ToList();
             return financialOutlooks; 
         }
+
+        public FiOutlook GetFinancialOutlookById(int id)
+        {
+            var financialOutlook = _FYFIDbContext.FiOutlooks.Find(id); 
+            return financialOutlook;
+        }
+
     }
 }
