@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FYFI.Repository.InMemory.Migrations
 {
     [DbContext(typeof(FYFIDbContext))]
-    [Migration("20260424143020_AddFiOutlook.FiOutlookName")]
-    partial class AddFiOutlookFiOutlookName
+    [Migration("20260424144354_InitialCreateAndTables")]
+    partial class InitialCreateAndTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
