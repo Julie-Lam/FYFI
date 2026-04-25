@@ -1,4 +1,5 @@
 ﻿using FYFI.Repository.InMemory.Migrations;
+using FYFI.Repository.InMemory.Model;
 using FYFI.UI.CommandLine;
 
 namespace FyFi.UI.CommandLine
@@ -10,96 +11,135 @@ namespace FyFi.UI.CommandLine
         static FYFIRepository _repository { get; set; } = new FYFIRepository(); 
         static void Main(string[] args)
         {
-            var argOptions = (FYFI_ACTION[])Enum.GetValues(typeof(FYFI_ACTION)); 
 
-            var argInput = _cmdLineService.GetArgInput($"Enter an arg to specify the action you'd like to perform: {String.Join(", ", argOptions)}", "Please enter a valid action from the provided list");
-
-            switch (argInput)
+            while (true)
             {
-                case FYFI_ACTION.NewOutlook:
-                    {
-                        var durationYears = _cmdLineService.GetDurationYearsInput("How many years would you like to predict in the future?", "Please enter a whole number");
-                        var savingsPerMonth = _cmdLineService.GetSavingsPerMonth("How much money are you saving per month? e.g. 2500.00", "Please enter a decimal number");
+                var argOptions = (FYFI_ACTION[])Enum.GetValues(typeof(FYFI_ACTION));
 
+                var argInput = _cmdLineService.GetArgInput($"Enter an arg to specify the action you'd like to perform: {String.Join(", ", argOptions)}", "Please enter a valid action from the provided list");
 
-                        //Calculate the forcast
-                        var financialOutlook = _cmdLineService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
-
-
-                        foreach (var year in financialOutlook.FiOutlookYears)
+                switch (argInput)
+                {
+                    case FYFI_ACTION.NewOutlook:
                         {
-                            Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
+                            var durationYears = _cmdLineService.GetDurationYearsInput("How many years would you like to predict in the future?", "Please enter a whole number");
+                            var savingsPerMonth = _cmdLineService.GetSavingsPerMonth("How much money are you saving per month? e.g. 2500.00", "Please enter a decimal number");
+
+
+                            //Calculate the forcast
+                            var financialOutlook = _cmdLineService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
+
+
+                            foreach (var year in financialOutlook.FiOutlookYears)
+                            {
+                                Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
+                            }
+
+                            var shouldSaveForecastInput = _cmdLineService.GetShouldSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
+
+                            if (shouldSaveForecastInput)
+                            {
+                                var fiOutlookName = _cmdLineService.GetFiOutlookNameInput("Please enter a memorable name for this financial outlook");
+
+                                financialOutlook.FiOutlookName = fiOutlookName;
+
+                                _repository.UpsertFinancialOutlook(financialOutlook);
+
+                            };
+
+
+                            break;
                         }
 
-                        var shouldSaveForecastInput = _cmdLineService.GetShouldSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
-
-                        if (shouldSaveForecastInput)
+                    case FYFI_ACTION.ListSavedOutlooks:
                         {
-                            var fiOutlookName = _cmdLineService.GetFiOutlookNameInput("Please enter a memorable name for this financial outlook"); 
+                            var fiOutlooks = _repository.GetAllFinancialOutlooks();
 
-                            financialOutlook.FiOutlookName = fiOutlookName;
+                            foreach (var outlook in fiOutlooks)
+                            {
+                                Console.WriteLine($"ID: {outlook.FiOutlookId} || {outlook.FiOutlookName}");
+                            }
 
-                            _repository.UpsertFinancialOutlook(financialOutlook); 
-                        
-                        };
-
-
-                        break;
-                    }
-
-                case FYFI_ACTION.ListSavedOutlooks:
-                    {
-                        var fiOutlooks = _repository.GetAllFinancialOutlooks();
-
-                        foreach (var outlook in fiOutlooks)
-                        {
-                            Console.WriteLine($"ID: {outlook.FiOutlookId} || {outlook.FiOutlookName}"); 
+                            break;
                         }
 
-                        break; 
-                    }
-
-                case FYFI_ACTION.EditOutlook: 
-                    {
-                        //TODO: prompt which id they want to enter 
-                        var fiOutlookIdInput = _cmdLineService.GetFiOutlookId("Please enter the id of the financial outlook you'd like to edit");
-
-                        //Get the fioutlook based on id 
-                        var savedFinancialOutlook = _repository.GetFinancialOutlookById(fiOutlookIdInput); 
-
-                        var editOutlookOption = _cmdLineService.GetEditOutlookOptionInput($"What would you like to edit? Select the list: {String.Join(", ", (EDIT_OUTLOOK_OPTIONS[])Enum.GetValues(typeof(EDIT_OUTLOOK_OPTIONS)))}");
-
-                        switch (editOutlookOption)
+                    case FYFI_ACTION.EditOutlook:
                         {
-                            case EDIT_OUTLOOK_OPTIONS.OutlookName:
-                                {
-                                    var fiOutlookName = _cmdLineService.GetFiOutlookNameInput("Please enter a new name for this financial outlook");
+                            //TODO: prompt which id they want to enter 
+                            var fiOutlookIdInput = _cmdLineService.GetFiOutlookId("Please enter the id of the financial outlook you'd like to edit");
 
-                                    savedFinancialOutlook.FiOutlookName = fiOutlookName;
+                            //Get the fioutlook based on id 
+                            var savedFinancialOutlook = _repository.GetFinancialOutlookById(fiOutlookIdInput);
 
-                                    _repository.UpsertFinancialOutlook(savedFinancialOutlook); 
+                            var editOutlookOption = _cmdLineService.GetEditOutlookOptionInput($"What would you like to edit? Select the list: {String.Join(", ", (EDIT_OUTLOOK_OPTIONS[])Enum.GetValues(typeof(EDIT_OUTLOOK_OPTIONS)))}");
+
+                            switch (editOutlookOption)
+                            {
+                                case EDIT_OUTLOOK_OPTIONS.OutlookName:
+                                    {
+                                        var fiOutlookName = _cmdLineService.GetFiOutlookNameInput("Please enter a new name for this financial outlook");
+
+                                        savedFinancialOutlook.FiOutlookName = fiOutlookName;
+
+                                        _repository.UpsertFinancialOutlook(savedFinancialOutlook);
+                                        break;
+                                    }
+                                case EDIT_OUTLOOK_OPTIONS.OutlookDurationYears:
+                                    {
+                                        var fiOutlookDurationYears = _cmdLineService.GetFiOutlookDurationYearsInput("Please enter the new duration in years for this financial outlook");
+
+                                        if (fiOutlookDurationYears == savedFinancialOutlook.FiOutlookYears.Count)
+                                        {
+                                            //do nothing; 
+                                        }
+
+                                        if (fiOutlookDurationYears > savedFinancialOutlook.FiOutlookYears.Count)
+                                        {
+                                            var additionalYears = Math.Abs(fiOutlookDurationYears - savedFinancialOutlook.FiOutlookYears.Count);
+
+                                            var savingsPerYear = savedFinancialOutlook.FiOutlookYears.Last().SavingsYearly;
+
+                                            for (int i = 0; i < additionalYears; i++)
+                                            {
+                                                var additionalFiOutlookYear = _cmdLineService.CalculateFinancialOutlookYear(savedFinancialOutlook, savingsPerYear, i);
+
+                                                savedFinancialOutlook.FiOutlookYears.Add(additionalFiOutlookYear);
+                                            }
+
+                                            _repository.UpsertFinancialOutlook(savedFinancialOutlook);
+                                        }
+
+                                        if (fiOutlookDurationYears < savedFinancialOutlook.FiOutlookYears.Count) 
+                                        {
+                                            var deductedYears = Math.Abs(fiOutlookDurationYears - savedFinancialOutlook.FiOutlookYears.Count);
+
+                                            var maxIndex = savedFinancialOutlook.FiOutlookYears.IndexOf(savedFinancialOutlook.FiOutlookYears.Last());
+                                            var startingIndex = maxIndex - deductedYears; 
+                                            savedFinancialOutlook.FiOutlookYears.RemoveRange(startingIndex, deductedYears);
+
+                                            _repository.UpsertFinancialOutlook(savedFinancialOutlook);
+                                        }
+
+                                        break;
+                                    }
+                                case EDIT_OUTLOOK_OPTIONS.OutlookSavingsPerMonth:
+                                    {
+                                        break;
+                                    }
+                                default:
                                     break;
-                                }
-                            case EDIT_OUTLOOK_OPTIONS.OutlookDurationYears:
-                                { 
-                                break;
-                                }
-                            case EDIT_OUTLOOK_OPTIONS.OutlookSavingsPerMonth:
-                                { 
-                                break;
-                                }
-                            default:
-                                break;
+                            }
+
+
+                            break;
                         }
-
-
-                        break; 
-                    }
-                default:
-                { 
-                    break;
+                    default:
+                        {
+                            break;
+                        }
                 }
             }
+            
 
 
 

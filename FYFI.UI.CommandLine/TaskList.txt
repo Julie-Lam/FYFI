@@ -1,8 +1,7 @@
 ﻿TODO: 
 - Persist a new forecast 
 	-> Implement all the options for editing an existing outlook
-	-> implement rerunability so user can repeatedly choose what they want to do 
-
+	-> Implement arg to view outlook details 
 
 - Implement basic user login 
 	-> Allow a user to login using username and password 

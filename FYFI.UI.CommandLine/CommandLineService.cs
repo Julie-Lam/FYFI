@@ -22,28 +22,13 @@ namespace FYFI.UI.CommandLine
 
                 var fiOutlookYear = CalculateFinancialOutlookYear(financialOutlook, savingsPerYear, i); 
 
-                //var financialOutlookYear = new FiOutlookYear();
-                //financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1);
-                //financialOutlookYear.SavingsYearly = savingsPerYear; 
-                ////financialOutlookYear.Cash = savingsPerYear;
-
-                //if (i == 0)
-                //{ 
-                //    financialOutlookYear.Cash = savingsPerYear;
-                //    financialOutlook.FiOutlookYears.Add(financialOutlookYear);
-
-                //}
-
-
-                //financialOutlookYear.Cash += financialOutlook.FiOutlookYears[i - 1].Cash;
-
                 financialOutlook.FiOutlookYears.Add(fiOutlookYear);
             }
 
             return financialOutlook; 
         }
 
-        private FiOutlookYear CalculateFinancialOutlookYear(FiOutlook financialOutlook, decimal savingsPerYear, int i) 
+        public FiOutlookYear CalculateFinancialOutlookYear(FiOutlook financialOutlook, decimal savingsPerYear, int i) 
         {
             var financialOutlookYear = new FiOutlookYear();
             financialOutlookYear.YearDate = DateTime.Now.AddYears(i + 1);
@@ -106,6 +91,13 @@ namespace FYFI.UI.CommandLine
             EDIT_OUTLOOK_OPTIONS argAction = GetUserInputEnum<EDIT_OUTLOOK_OPTIONS>(initialPrompt, appendedErrorPrompt);
 
             return argAction;
+        }
+
+        public int GetFiOutlookDurationYearsInput(string initialPrompt, string? appendedErrorPrompt = null)
+        {
+            var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt);
+
+            return durationYearsInput; 
         }
 
         public int GetFiOutlookId(string initialPrompt, string? appendedErrorPrompt = null)

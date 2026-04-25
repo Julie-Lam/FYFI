@@ -1,5 +1,6 @@
 ﻿using FyFi.UI.CommandLine;
 using FYFI.Repository.InMemory.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +31,13 @@ namespace FYFI.UI.CommandLine
 
         public List<FiOutlook> GetAllFinancialOutlooks()
         {
-            var financialOutlooks = _FYFIDbContext.FiOutlooks.ToList();
+            var financialOutlooks = _FYFIDbContext.FiOutlooks.Include(o => o.FiOutlookYears).ToList();
             return financialOutlooks; 
         }
 
         public FiOutlook GetFinancialOutlookById(int id)
         {
-            var financialOutlook = _FYFIDbContext.FiOutlooks.Find(id); 
+            var financialOutlook = _FYFIDbContext.FiOutlooks.Include(o => o.FiOutlookYears).Where(o => o.FiOutlookId == id).FirstOrDefault(); 
             return financialOutlook;
         }
 
