@@ -108,9 +108,12 @@ namespace FyFi.UI.CommandLine
 
                                             var savingsPerYear = savedFinancialOutlook.FiOutlookYears.Last().SavingsYearly;
 
+
                                             for (int i = 0; i < additionalYears; i++)
                                             {
-                                                var additionalFiOutlookYear = _fyfiBllService.CalculateFinancialOutlookYear(savedFinancialOutlook, savingsPerYear, i);
+                                                var yearNum = additionalYears + i;
+                                                var prevOutlookYearCash = savedFinancialOutlook.FiOutlookYears[(savedFinancialOutlook.FiOutlookYears.Count) - 1].Cash;  
+                                                var additionalFiOutlookYear = _fyfiBllService.CalculateFinancialOutlookYear(savingsPerYear, yearNum, prevOutlookYearCash);
 
                                                 savedFinancialOutlook.FiOutlookYears.Add(additionalFiOutlookYear);
                                             }
@@ -133,6 +136,14 @@ namespace FyFi.UI.CommandLine
                                     }
                                 case EDIT_OUTLOOK_OPTIONS.OutlookSavingsPerMonth:
                                     {
+                                        var savingsPerMonth = _cmdLineService.GetSavingsPerMonth("Enter the new savings per month for this financial outlook, e.g. 2500, 2500.50", "Please enter a decimal number");
+
+                                        //todo: recalculate the entire outlook.years
+                                        var durationInYears = savedFinancialOutlook.FiOutlookYears.Count();
+
+                                        savedFinancialOutlook.FiOutlookYears = _fyfiBllService.CalculateFinancialOutlookYears(durationInYears, savingsPerMonth); 
+
+
                                         break;
                                     }
                                 default:

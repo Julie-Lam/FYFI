@@ -14,7 +14,7 @@ namespace FYFI.UI.CommandLine
         private FYFIDbContext _FYFIDbContext { get; set; } = new FYFIDbContext(); 
         public void UpsertFinancialOutlook(FiOutlook financialOutlook) 
         {
-            var fiOutlook = _FYFIDbContext.FiOutlooks.First(o => o.FiOutlookId == financialOutlook.FiOutlookId); 
+            var fiOutlook = _FYFIDbContext.FiOutlooks.FirstOrDefault(o => o.FiOutlookId == financialOutlook.FiOutlookId); 
 
             if (fiOutlook is null) 
             {

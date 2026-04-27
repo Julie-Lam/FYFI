@@ -1,8 +1,11 @@
 ﻿TODO: 
-- Persist a new forecast 
-	-> Implement all the options for editing an existing outlook
-	-> Implement arg to view outlook details 
+MVP
+	-> Provide unit test coverage of all the key functionalities  
 
-- Implement basic user login 
+
+DEPLOYMENT 
+	-> Set up a way to manually deploy this console app, and the db 
+
+Implement basic user login 
 	-> Allow a user to login using username and password 
 	-> Once a user is logged in, allow them to see their calculated forecasts or edit any existing forecasts 
