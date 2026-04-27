@@ -1,4 +1,6 @@
-﻿using FYFI.Repository.InMemory.Migrations;
+﻿using FYFI.Core;
+using FYFI.Core.Enums;
+using FYFI.Repository.InMemory.Migrations;
 using FYFI.Repository.InMemory.Model;
 using FYFI.UI.CommandLine;
 
@@ -8,6 +10,7 @@ namespace FyFi.UI.CommandLine
     {
 
         static CommandLineService _cmdLineService { get; set; } = new CommandLineService();
+        static FYFIBLLService _fyfiBllService { get; set; } = new FYFIBLLService();
         static FYFIRepository _repository { get; set; } = new FYFIRepository(); 
         static void Main(string[] args)
         {
@@ -27,7 +30,7 @@ namespace FyFi.UI.CommandLine
 
 
                             //Calculate the forcast
-                            var financialOutlook = _cmdLineService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
+                            var financialOutlook = _fyfiBllService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
 
 
                             foreach (var year in financialOutlook.FiOutlookYears)
@@ -63,9 +66,19 @@ namespace FyFi.UI.CommandLine
                             break;
                         }
 
+
+                    case FYFI_ACTION.ViewOutlookDetails:
+                        {
+                            var fiOutlookIdInput = _cmdLineService.GetFiOutlookId("Please enter the id of the financial outlook you'd like view the details of");
+
+                            var savedFinancialOutlook = _repository.GetFinancialOutlookById(fiOutlookIdInput);
+
+
+                            break; 
+                        }
                     case FYFI_ACTION.EditOutlook:
                         {
-                            //TODO: prompt which id they want to enter 
+                            //Prompt which id they want to enter 
                             var fiOutlookIdInput = _cmdLineService.GetFiOutlookId("Please enter the id of the financial outlook you'd like to edit");
 
                             //Get the fioutlook based on id 
@@ -101,7 +114,7 @@ namespace FyFi.UI.CommandLine
 
                                             for (int i = 0; i < additionalYears; i++)
                                             {
-                                                var additionalFiOutlookYear = _cmdLineService.CalculateFinancialOutlookYear(savedFinancialOutlook, savingsPerYear, i);
+                                                var additionalFiOutlookYear = _fyfiBllService.CalculateFinancialOutlookYear(savedFinancialOutlook, savingsPerYear, i);
 
                                                 savedFinancialOutlook.FiOutlookYears.Add(additionalFiOutlookYear);
                                             }
@@ -145,14 +158,6 @@ namespace FyFi.UI.CommandLine
 
         }
 
-
-    }
-
-    public enum EDIT_OUTLOOK_OPTIONS
-    {
-        OutlookName = 1,
-        OutlookDurationYears = 2, 
-        OutlookSavingsPerMonth = 3
 
     }
 

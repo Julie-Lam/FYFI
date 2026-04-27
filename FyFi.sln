@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FYFI.Repository.InMemory", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FYFI.UI.CommandLine", "FYFI.UI.CommandLine\FYFI.UI.CommandLine.csproj", "{3116F2AC-26FC-4B47-A71F-D842FB0C6A44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FYFI.Core", "FYFI.Core\FYFI.Core.csproj", "{65459771-3F1E-4BAD-8E0D-50B23FDCFF8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3116F2AC-26FC-4B47-A71F-D842FB0C6A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3116F2AC-26FC-4B47-A71F-D842FB0C6A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3116F2AC-26FC-4B47-A71F-D842FB0C6A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65459771-3F1E-4BAD-8E0D-50B23FDCFF8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65459771-3F1E-4BAD-8E0D-50B23FDCFF8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65459771-3F1E-4BAD-8E0D-50B23FDCFF8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65459771-3F1E-4BAD-8E0D-50B23FDCFF8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
