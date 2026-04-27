@@ -115,5 +115,16 @@ namespace FYFI.UI.CommandLine
 
             return inputParsed;
         }
+
+
+
+        public void PrintFinancialOutlookDetails(FiOutlook financialOutlook) 
+        {
+            foreach (var year in financialOutlook.FiOutlookYears)
+            {
+                Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
+
+            }
+        }
     }
 }

@@ -32,11 +32,7 @@ namespace FyFi.UI.CommandLine
                             //Calculate the forcast
                             var financialOutlook = _fyfiBllService.GenerateFinancialOutlook(durationYears, savingsPerMonth);
 
-
-                            foreach (var year in financialOutlook.FiOutlookYears)
-                            {
-                                Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
-                            }
+                            _cmdLineService.PrintFinancialOutlookDetails(financialOutlook); 
 
                             var shouldSaveForecastInput = _cmdLineService.GetShouldSaveForecastInput("Would you like to save this financial outlook? true for yes, false for no", "Please enter a valid response. ");
 
@@ -73,7 +69,7 @@ namespace FyFi.UI.CommandLine
 
                             var savedFinancialOutlook = _repository.GetFinancialOutlookById(fiOutlookIdInput);
 
-
+                            _cmdLineService.PrintFinancialOutlookDetails(savedFinancialOutlook);
                             break; 
                         }
                     case FYFI_ACTION.EditOutlook:
