@@ -6,77 +6,75 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FYFI.UI.CommandLine
+namespace FYFI.UI.CommandLine.Service
 {
-    public class CommandLineService
+    public class ConsoleUserInterfaceService : IUserInterfaceService
     {
 
-
-
-        public FYFI_ACTION GetArgInput(string initialPrompt, string? appendedErrorPrompt = null) 
+        public FYFI_ACTION GetArgInput(string initialPrompt, string appendedErrorPrompt = null)
         {
 
             FYFI_ACTION argAction = GetUserInputEnum<FYFI_ACTION>(initialPrompt, appendedErrorPrompt);
 
-            return argAction; 
+            return argAction;
 
         }
 
-        public int GetDurationYearsInput(string initialPrompt, string? appendedErrorPrompt = null) 
+        public int GetDurationYearsInput(string initialPrompt, string appendedErrorPrompt = null)
         {
-            var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt); 
+            var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt);
 
             return durationYearsInput;
         }
 
-        public decimal GetSavingsPerMonth(string initialPrompt, string? appendedErrorPrompt = null)
+        public decimal GetSavingsPerMonth(string initialPrompt, string appendedErrorPrompt = null)
         {
             var savingsPerMonth = GetUserInput<decimal>(initialPrompt, appendedErrorPrompt);
 
-            return savingsPerMonth; 
+            return savingsPerMonth;
         }
 
 
-        public bool GetShouldSaveForecastInput(string initialPrompt, string? appendedErrorPrompt = null)
+        public bool GetShouldSaveForecastInput(string initialPrompt, string appendedErrorPrompt = null)
         {
             var shouldSaveForecastInput = GetUserInput<bool>(initialPrompt, appendedErrorPrompt = null);
 
             return shouldSaveForecastInput;
         }
 
-        public string GetFiOutlookNameInput(string initialPrompt, string? appendedErrorPrompt = null)
+        public string GetFiOutlookNameInput(string initialPrompt, string appendedErrorPrompt = null)
         {
             var financialOutlookName = GetUserInput<string>(initialPrompt, appendedErrorPrompt);
 
             return financialOutlookName;
         }
 
-        public EDIT_OUTLOOK_OPTIONS GetEditOutlookOptionInput(string initialPrompt, string? appendedErrorPrompt = null)
+        public EDIT_OUTLOOK_OPTIONS GetEditOutlookOptionInput(string initialPrompt, string appendedErrorPrompt = null)
         {
             EDIT_OUTLOOK_OPTIONS argAction = GetUserInputEnum<EDIT_OUTLOOK_OPTIONS>(initialPrompt, appendedErrorPrompt);
 
             return argAction;
         }
 
-        public int GetFiOutlookDurationYearsInput(string initialPrompt, string? appendedErrorPrompt = null)
+        public int GetFiOutlookDurationYearsInput(string initialPrompt, string appendedErrorPrompt = null)
         {
             var durationYearsInput = GetUserInput<int>(initialPrompt, appendedErrorPrompt);
 
-            return durationYearsInput; 
+            return durationYearsInput;
         }
 
-        public int GetFiOutlookId(string initialPrompt, string? appendedErrorPrompt = null)
+        public int GetFiOutlookId(string initialPrompt, string appendedErrorPrompt = null)
         {
             var fiOutlookId = GetUserInput<int>(initialPrompt, appendedErrorPrompt);
 
             return fiOutlookId;
         }
 
-        internal T GetUserInput<T>(string initialPrompt, string? errorPrompt = null) where T : IParsable<T>
+        internal TResult GetUserInput<TResult>(string initialPrompt, string errorPrompt = null) where TResult : IParsable<TResult>
         {
             errorPrompt = errorPrompt ?? string.Empty;
 
-            T inputParsed; 
+            TResult inputParsed;
             var isValidInput = false;
             do
             {
@@ -84,7 +82,7 @@ namespace FYFI.UI.CommandLine
                 var input = Console.ReadLine();
 
 
-                isValidInput = T.TryParse(input, null, out inputParsed);
+                isValidInput = TResult.TryParse(input, null, out inputParsed);
                 if (isValidInput == false)
                 {
                     Console.WriteLine($"{input} is not a valid input. {errorPrompt}");
@@ -97,7 +95,7 @@ namespace FYFI.UI.CommandLine
 
         internal T GetUserInputEnum<T>(string initialPrompt, string errorPrompt = null) where T : struct, Enum
         {
-            T inputParsed = default(T);
+            T inputParsed = default;
             var isValidInput = false;
             do
             {
@@ -118,12 +116,20 @@ namespace FYFI.UI.CommandLine
 
 
 
-        public void PrintFinancialOutlookDetails(FiOutlook financialOutlook) 
+        public void PrintFinancialOutlookDetails(FiOutlook financialOutlook)
         {
             foreach (var year in financialOutlook.FiOutlookYears)
             {
                 Console.WriteLine($"Year {year.YearDate} || Cash: {year.Cash.ToString("C")}");
 
+            }
+        }
+
+        public void PrintFinancialOutlooks(List<FiOutlook> fiOutlooks) 
+        {
+            foreach (var outlook in fiOutlooks)
+            {
+                Console.WriteLine($"ID: {outlook.FiOutlookId} || {outlook.FiOutlookName}");
             }
         }
     }

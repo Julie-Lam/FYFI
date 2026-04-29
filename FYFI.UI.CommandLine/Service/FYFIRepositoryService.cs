@@ -7,37 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FYFI.UI.CommandLine
+namespace FYFI.UI.CommandLine.Service
 {
-    public class FYFIRepository
+    public class FYFIRepositoryService : IFYFIRepositoryService
     {
-        private FYFIDbContext _FYFIDbContext { get; set; } = new FYFIDbContext(); 
-        public void UpsertFinancialOutlook(FiOutlook financialOutlook) 
+        private FYFIDbContext _FYFIDbContext { get; set; } = new FYFIDbContext();
+        public void UpsertFinancialOutlook(FiOutlook financialOutlook)
         {
-            var fiOutlook = _FYFIDbContext.FiOutlooks.FirstOrDefault(o => o.FiOutlookId == financialOutlook.FiOutlookId); 
+            var fiOutlook = _FYFIDbContext.FiOutlooks.FirstOrDefault(o => o.FiOutlookId == financialOutlook.FiOutlookId);
 
-            if (fiOutlook is null) 
+            if (fiOutlook is null)
             {
                 _FYFIDbContext.FiOutlooks.Add(financialOutlook);
             }
 
             else
             {
-                fiOutlook = financialOutlook; 
+                fiOutlook = financialOutlook;
             }
 
-            _FYFIDbContext.SaveChanges(); 
+            _FYFIDbContext.SaveChanges();
         }
 
         public List<FiOutlook> GetAllFinancialOutlooks()
         {
             var financialOutlooks = _FYFIDbContext.FiOutlooks.Include(o => o.FiOutlookYears).ToList();
-            return financialOutlooks; 
+            return financialOutlooks;
         }
 
         public FiOutlook GetFinancialOutlookById(int id)
         {
-            var financialOutlook = _FYFIDbContext.FiOutlooks.Include(o => o.FiOutlookYears).Where(o => o.FiOutlookId == id).FirstOrDefault(); 
+            var financialOutlook = _FYFIDbContext.FiOutlooks.Include(o => o.FiOutlookYears).Where(o => o.FiOutlookId == id).FirstOrDefault();
             return financialOutlook;
         }
 
