@@ -4,7 +4,9 @@ MVP
 
 
 DEPLOYMENT 
-	-> Set up a way to manually deploy this console app, and the db 
+	-> Manually deploy the db 
+	-> Manually deploy the console app ? Make it distributable? 
+	-> Local app works with local MSSQL, dev console app connects to dev MSSQL 
 
 Implement basic user login 
 	-> Allow a user to login using username and password 
